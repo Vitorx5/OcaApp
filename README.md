@@ -3,7 +3,7 @@
 ## 🚀 Como rodar o projeto
 
 Clonar o repositório
-git clone https://github.com/seu-usuario/OcaApp.git
+git clone https://github.com/Vitorx5/OcaApp.git
 
 Entrar na pasta do projeto
 cd OcaApp
