@@ -1,6 +1,6 @@
 # 📱 OcaApp
 
-🚀 Como rodar o projeto
+## 🚀 Como rodar o projeto
 
 Clonar o repositório
 git clone https://github.com/seu-usuario/OcaApp.git
