@@ -110,10 +110,16 @@ export default function Login() {
         <AppButton title="Acesse" onPress={handleLogin} loading={sending} />
 
         <Spacer size={SPACING.lg} />
-        <Text style={styles.footerText}>
-          Não tem conta?{" "}
-          <Text onPress={() => router.push("/register" as any)} style={styles.footerLink}>Registre-se</Text>
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <Text style={styles.footerText}>Não tem conta? </Text>
+          <TouchableOpacity
+            onPress={() => router.push("./register")}
+            hitSlop={8}
+            accessibilityRole="button"
+          >
+            <Text style={styles.footerLink}>Registre-se</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </Screen>
   );

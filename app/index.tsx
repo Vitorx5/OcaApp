@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { Video } from "expo-av";
+import { Video, ResizeMode } from "expo-av";
 import { router } from "expo-router";
 
 export default function Splash() {
@@ -13,7 +13,7 @@ export default function Splash() {
       <Video
         source={require("../assets/video/splash.mp4")}
         style={styles.video}
-        resizeMode="cover"
+        resizeMode={ResizeMode.COVER}
         shouldPlay
       />
     </View>
