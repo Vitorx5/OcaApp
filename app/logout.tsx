@@ -57,7 +57,7 @@ export default function Logout() {
           <Logo width={120} height={120} />
         </HeaderCard>
       </View>
-      
+
       <Spacer size={SPACING.xl} />
 
       {/* Ícone grande */}
@@ -90,7 +90,7 @@ export default function Logout() {
         <AppButton
           title="Retornar"
           onPress={handleCancel}
-          style={[styles.btn, styles.btnYellow]}
+          style={[styles.btn, styles.btnOrange]}
           textStyle={styles.btnYellowText}
         />
       </View>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     marginBottom: SPACING.xxl,
-    tintColor: "#b45309", // marrom/laranja do mock
+    tintColor: "#f6990b", // marrom/laranja do mock
   },
   titlesWrap: {
     paddingHorizontal: SPACING.xl,
@@ -132,12 +132,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#cfcfcf",
   },
   btnGrayText: {
-    color: "#374151",
+    color: "#6b7280",
     fontWeight: "700",
     letterSpacing: 0.3,
   },
-  btnYellow: {
-    backgroundColor: "#fdcb18",
+  btnOrange: {
+    backgroundColor: "#f6990b",
+    color: "#ffffff",
   },
   btnYellowText: {
     color: "#1f2937",
