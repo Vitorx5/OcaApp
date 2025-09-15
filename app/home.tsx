@@ -19,7 +19,11 @@ export default function Home() {
     <Screen>
       <View style={s.wrap}>
         <Image source={require("../assets/loading.gif")} style={s.gif} />
-        <AppButton title="Sair" variant="primary" onPress={onLogout} style={{ marginTop: SPACING.md }} />
+        <AppButton
+        title="Sair"
+        onPress={() => router.push("/logout")}
+        style={{ alignSelf: "center", width: 180, height: 44 }}
+        />
       </View>
     </Screen>
   );
