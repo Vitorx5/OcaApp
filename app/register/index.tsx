@@ -58,14 +58,14 @@ const s = StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   card: {
-    backgroundColor: COLORS.surface ?? "#fff",
+    backgroundColor: COLORS.background ?? "#fff",
     borderRadius: 14,
     padding: SPACING.lg,
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#eee",
   },
-  cardImg: { width: "auto", height: 100, marginBottom: SPACING.md },
+  cardImg: { width: "auto", height: 140, marginBottom: SPACING.md },
   cardTitle: { textAlign: "center" },
   cardSub: { textAlign: "center", color: COLORS.textMuted, marginTop: 4 },
 });

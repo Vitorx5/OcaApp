@@ -92,6 +92,7 @@ export default function Logout() {
           onPress={handleCancel}
           style={[styles.btn, styles.btnOrange]}
           textStyle={styles.btnYellowText}
+          
         />
       </View>
     </Screen>
@@ -138,11 +139,10 @@ const styles = StyleSheet.create({
   },
   btnOrange: {
     backgroundColor: "#f6990b",
-    color: "#ffffff",
   },
   btnYellowText: {
-    color: "#1f2937",
-    fontWeight: "700",
-    letterSpacing: 0.3,
+    color: "#ffffff",
+    fontWeight: "800",
+    letterSpacing: 0.4,
   },
 });
