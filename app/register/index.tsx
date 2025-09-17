@@ -18,7 +18,7 @@ export default function RegisterSelect() {
       router.push("./register/comum");
     } else {
       // por ora, voluntário volta para login (ajustaremos depois)
-      router.replace("/login");
+      router.replace("./register/voluntario");
     }
   };
 
