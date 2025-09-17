@@ -108,7 +108,7 @@ export default function RegisterComum() {
           >
             <View style={{ paddingHorizontal: SPACING.xl, flexGrow: 1 }}>
               <Title>Crie sua conta</Title>
-              <Subtitle>Preencha o formulário para receber ofertas de ajuda voluntária</Subtitle>
+              <Subtitle>Preencha o formulário para ofertar ajuda voluntária</Subtitle>
 
               <Spacer size={SPACING.lg} />
 
