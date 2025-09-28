@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     height: 60,
-    backgroundColor: "#ffffffff",
+    backgroundColor: "#f6990b",
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     boxShadow: "0 -2px 6px rgba(0,0,0,0.1)",
   },
   link: {
-    color: "#f6990b",
+    color: "#fff",
     fontSize: 27,
   },
 });
