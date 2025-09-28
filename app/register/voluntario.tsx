@@ -11,8 +11,9 @@ import {
   Keyboard,
   Text,
   TouchableOpacity,
-  CheckBox,
+  ActivityIndicator,
 } from "react-native";
+import Listbox from "../../src/components/Listbox";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -38,6 +39,11 @@ type Body = {
   notificacao_app: boolean;
 };
 
+type Profissao = {
+  id: number;
+  nome: string;
+};
+
 const DRAFT_KEY = "@register_draft";
 
 export default function RegisterComum() {
@@ -53,6 +59,11 @@ export default function RegisterComum() {
   const [passwordConf, setPasswordConf] = useState("");
   const [aceitaZap, setAceitaZap] = useState(true); // opcional, será confirmado na tela de consentimento
   const [notifica, setNotifica] = useState(true); // opcional, mantido para push/app futuramente
+  const [profissoes, setProfissoes] = useState<
+    { label: string; value: string }[]
+  >([]);
+  const [selected, setSelected] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // PIX state
   const [pixTipo, setPixTipo] = useState<
@@ -99,6 +110,35 @@ export default function RegisterComum() {
       Alert.alert("Erro", "Não foi possível avançar. Tente novamente.");
     }
   };
+
+  useEffect(() => {
+    async function fetchProfissoes() {
+      try {
+        const response = await fetch("https://suaapi.com/profissoes");
+        const data: Profissao[] = await response.json();
+
+        const options = data.map((p) => ({
+          label: p.nome,
+          value: String(p.id),
+        }));
+
+        setProfissoes([
+          { label: "Escolha a opção desejada", value: "" },
+          ...options,
+        ]);
+      } catch (error) {
+        console.error("Erro ao buscar profissões:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProfissoes();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#000" />;
+  }
 
   // Remover função duplicada e não implementada setPixTipo
   // function setPixTipo(arg0: any): void {
@@ -186,84 +226,32 @@ export default function RegisterComum() {
                 returnKeyType="done"
               />
 
-              {/* PIX */}
-              <Text style={s.sectionTitle}>PIX</Text>
-              <View style={s.pixOptions}>
-                {["cpf", "numero", "email", "aleatoria"].map((tipo) => (
-                  <TouchableOpacity
-                    key={tipo}
-                    style={[s.pixButton, pixTipo === tipo && s.pixButtonActive]}
-                    onPress={() => setPixTipo(tipo as typeof pixTipo)}
-                  >
-                    <Text
-                      style={[
-                        s.pixButtonText,
-                        pixTipo === tipo && s.pixButtonTextActive,
-                      ]}
-                    >
-                      {tipo.toUpperCase()}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
               <FormTextInput
-                label="Chave PIX"
-                placeholder="Digite sua chave"
-                value={pixChave}
-                onChangeText={setPixChave}
+                label="Nome"
+                placeholder="Seu nome completo"
+                value={nome}
+                onChangeText={setNome}
+                returnKeyType="next"
               />
+              <Spacer size={SPACING.sm} />
 
-              <Spacer size={SPACING.lg} />
-
-              {/* Registro Profissional */}
               <FormTextInput
-                placeholder="OAB, CRM, CRS..."
-                value={registroProfissional}
+                label="Chave Pix"
+                placeholder="Insira sua chave Pix"
+                value={nome}
+                onChangeText={setNome}
+                returnKeyType="next"
+              />
+              <Spacer size={SPACING.sm} />
+
+              <FormTextInput
+                label="Registro profissionall"
+                placeholder="OAB, CRM, CRS, Matricula..."
+                value={nome}
                 onChangeText={setRegistroProfissional}
+                returnKeyType="next"
               />
-
-              <Spacer size={SPACING.lg} />
-
-              {/* Política de privacidade */}
-              <Text style={s.sectionTitle}>Política de Privacidade</Text>
-              <View style={s.privacyBox}>
-                <ScrollView>
-                  <Text style={s.privacyText}>
-                    Esta Política de Privacidade descreve, de forma clara e
-                    transparente, como Nativo Desenvolvimentos (CNPJ
-                    [xx.xxx.xxx/xxxx-xx]), na qualidade de controladora, coleta,
-                    utiliza, armazena e compartilha dados pessoais dos usuários
-                    do [Nome do App/Site], em conformidade com a Lei Geral de
-                    Proteção de Dados – LGPD (Lei nº 13.709/2018).{"\n\n"}
-                    Tratamos apenas as informações necessárias para prestar e
-                    aprimorar nossos serviços (por exemplo, dados de
-                    identificação, contato, navegação e cookies), com bases
-                    legais como execução de contrato, cumprimento de obrigações
-                    legais e legítimo interesse.
-                  </Text>
-                </ScrollView>
-              </View>
-
-              {/* Checkboxes */}
-              <View style={s.checkboxRow}>
-                <CheckBox
-                  value={aceitaTermos}
-                  onValueChange={setAceitaTermos}
-                />
-                <Text style={s.checkboxLabel}>
-                  Li e concordo com os Termos de Uso e Política de Privacidade
-                </Text>
-              </View>
-
-              <View style={s.checkboxRow}>
-                <CheckBox
-                  value={aceitaNotificacoes}
-                  onValueChange={setAceitaNotificacoes}
-                />
-                <Text style={s.checkboxLabel}>
-                  Aceito receber notificações do app e ofertas promocionais
-                </Text>
-              </View>
+              <Spacer size={SPACING.sm} />
 
               {/* Rodapé da tela (fica no fim, mas rola quando faltar espaço) */}
               <View style={{ marginTop: "auto" }}>
@@ -323,6 +311,7 @@ const s = StyleSheet.create({
   privacyText: {
     fontSize: 12,
     color: "#444",
+    lineHeight: 18,
     marginBottom: 10,
   },
   checkboxRow: {
@@ -336,17 +325,12 @@ const s = StyleSheet.create({
     color: "#333",
   },
   privacyBox: {
-  borderWidth: 1,
-  borderColor: "#ccc",
-  borderRadius: 8,
-  padding: 10,
-  height: 150, // controla a altura da área
-  marginBottom: 10,
-  backgroundColor: "#f9f9f9",
-},
-privacyText: {
-  fontSize: 12,
-  color: "#444",
-  lineHeight: 18,
-},
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    height: 150, // controla a altura da área
+    marginBottom: 10,
+    backgroundColor: "#f9f9f9",
+  },
 });

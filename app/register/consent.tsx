@@ -8,6 +8,7 @@ import {
   Switch,
   Platform,
   KeyboardAvoidingView,
+  Text,
 } from "react-native";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -39,16 +40,18 @@ export default function RegisterConsent() {
   const [draft, setDraft] = useState<Body | null>(null);
 
   const [acceptedPolicy, setAcceptedPolicy] = useState(false); // obrigatório
-  const [acceptZap, setAcceptZap] = useState(false);           // opcional
+  const [acceptZap, setAcceptZap] = useState(false); // opcional
 
   useEffect(() => {
     (async () => {
       try {
         const raw = await AsyncStorage.getItem(DRAFT_KEY);
         if (!raw) {
-          Alert.alert("Formulário não encontrado", "Preencha seus dados novamente.", [
-            { text: "OK", onPress: () => router.replace("/register/comum") },
-          ]);
+          Alert.alert(
+            "Formulário não encontrado",
+            "Preencha seus dados novamente.",
+            [{ text: "OK", onPress: () => router.replace("/register/comum") }]
+          );
           return;
         }
         const parsed: Body = JSON.parse(raw);
@@ -62,7 +65,10 @@ export default function RegisterConsent() {
 
   const submit = async () => {
     if (!acceptedPolicy) {
-      Alert.alert("Atenção", "Você precisa aceitar a Política de Privacidade para continuar.");
+      Alert.alert(
+        "Atenção",
+        "Você precisa aceitar a Política de Privacidade para continuar."
+      );
       return;
     }
 
@@ -84,12 +90,18 @@ export default function RegisterConsent() {
       setSending(true);
       const resp = await fetch("https://ocaunida.com.br/api/auth/register", {
         method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(body),
         signal: controller.signal,
       }).catch((err) => {
-        if (err.name === "AbortError") throw new Error("Tempo de conexão esgotado. Verifique sua internet.");
-        throw new Error("Não foi possível conectar ao servidor. Tente novamente.");
+        if (err.name === "AbortError")
+          throw new Error("Tempo de conexão esgotado. Verifique sua internet.");
+        throw new Error(
+          "Não foi possível conectar ao servidor. Tente novamente."
+        );
       });
 
       clearTimeout(t);
@@ -106,30 +118,49 @@ export default function RegisterConsent() {
         return null;
       })();
 
-      const msg = String(firstValidation || (data as any)?.message || (data as any)?.error || "").toLowerCase();
+      const msg = String(
+        firstValidation || (data as any)?.message || (data as any)?.error || ""
+      ).toLowerCase();
 
       if (!resp.ok) {
         switch (resp.status) {
           case 409:
-            if (msg.includes("email")) throw new Error("Este e-mail já está cadastrado. Faça login ou recupere a senha.");
-            if (msg.includes("whatsapp") || msg.includes("telefone")) throw new Error("Este WhatsApp já está cadastrado.");
-            throw new Error("Dados já cadastrados. Verifique e tente novamente.");
+            if (msg.includes("email"))
+              throw new Error(
+                "Este e-mail já está cadastrado. Faça login ou recupere a senha."
+              );
+            if (msg.includes("whatsapp") || msg.includes("telefone"))
+              throw new Error("Este WhatsApp já está cadastrado.");
+            throw new Error(
+              "Dados já cadastrados. Verifique e tente novamente."
+            );
           case 422:
             if (firstValidation) throw new Error(firstValidation);
             throw new Error("Há campos inválidos. Revise o formulário.");
           case 429:
-            throw new Error("Muitas tentativas. Aguarde um pouco e tente novamente.");
+            throw new Error(
+              "Muitas tentativas. Aguarde um pouco e tente novamente."
+            );
           default:
-            if (resp.status >= 500) throw new Error("Erro no servidor. Tente novamente em alguns minutos.");
-            throw new Error((data as any)?.message ?? `Erro ${resp.status}. Tente novamente.`);
+            if (resp.status >= 500)
+              throw new Error(
+                "Erro no servidor. Tente novamente em alguns minutos."
+              );
+            throw new Error(
+              (data as any)?.message ?? `Erro ${resp.status}. Tente novamente.`
+            );
         }
       }
 
       // Sucesso — pendente
-      const statusUsuario = (data as any)?.status?.toString().toLowerCase?.() ?? "";
+      const statusUsuario =
+        (data as any)?.status?.toString().toLowerCase?.() ?? "";
       await AsyncStorage.removeItem(DRAFT_KEY);
 
-      if (statusUsuario.includes("pendente") || statusUsuario.includes("pending")) {
+      if (
+        statusUsuario.includes("pendente") ||
+        statusUsuario.includes("pending")
+      ) {
         Alert.alert(
           "Cadastro enviado",
           "Seu cadastro foi criado e está pendente de aprovação. Você já pode tentar entrar.",
@@ -141,13 +172,16 @@ export default function RegisterConsent() {
         ]);
       }
     } catch (e: any) {
-      Alert.alert("Não foi possível cadastrar", e?.message ?? "Tente novamente.");
+      Alert.alert(
+        "Não foi possível cadastrar",
+        e?.message ?? "Tente novamente."
+      );
     } finally {
       setSending(false);
     }
   };
 
-  if (loading) return <Screen/>;
+  if (loading) return <Screen>{null}</Screen>;
 
   return (
     <Screen>
@@ -157,14 +191,26 @@ export default function RegisterConsent() {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : insets.top}
       >
         <ScrollView
-          contentContainerStyle={{ flexGrow: 1, paddingHorizontal: SPACING.xl, paddingBottom: insets.bottom + SPACING.xl }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingHorizontal: SPACING.xl,
+            paddingBottom: insets.bottom + SPACING.xl,
+          }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           <Title>Política de Privacidade</Title>
           <Subtitle>
-            Para continuar, você precisa aceitar nossa Política de Privacidade. Também pode optar por receber
-            notificações por WhatsApp (opcional).
+            Esta Política de Privacidade descreve, de forma clara e
+            transparente, como Nativo Desenvolvimentos (CNPJ
+            [xx.xxx.xxx/xxxx-xx]), na qualidade de controladora, coleta,
+            utiliza, armazena e compartilha dados pessoais dos usuários do [Nome
+            do App/Site], em conformidade com a Lei Geral de Proteção de Dados –
+            LGPD (Lei nº 13.709/2018). Tratamos apenas as informações
+            necessárias para prestar e aprimorar nossos serviços (por exemplo,
+            dados de identificação, contato, navegação e cookies), com bases
+            legais como execução de contrato, cumprimento de obrigações legais
+            e,
           </Subtitle>
 
           <Spacer size={SPACING.lg} />
@@ -188,7 +234,11 @@ export default function RegisterConsent() {
 
           <View style={{ marginTop: "auto" }}>
             <Spacer size={SPACING.lg} />
-            <AppButton title="Concordo e continuar" onPress={submit} loading={sending} />
+            <AppButton
+              title="Concordo e continuar"
+              onPress={submit}
+              loading={sending}
+            />
             <Spacer size={SPACING.md} />
             <AppButton
               title="Voltar"

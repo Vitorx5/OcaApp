@@ -1,23 +1,3 @@
-// import React from "react";
-// import { TextInput, StyleSheet, TextInputProps } from "react-native";
-// import { COLORS, RADIUS, SPACING } from "../theme";
-
-// export default function FormTextInput(props: TextInputProps) {
-//   return <TextInput {...props} style={[styles.input, props.style]} placeholderTextColor="#9aa1a8" />;
-// }
-
-// const styles = StyleSheet.create({
-//   input: {
-//     borderWidth: 1,
-//     borderColor: COLORS.border,
-//     backgroundColor: COLORS.mutedBg,
-//     padding: SPACING.md,
-//     borderRadius: RADIUS.md,
-//     marginBottom: SPACING.md,
-//     fontSize: 16,
-//   },
-// });
-
 import React from "react";
 import { TextInput, StyleSheet, Text, View, TextInputProps } from "react-native";
 import { COLORS, RADIUS, SPACING } from "../theme";
@@ -26,7 +6,7 @@ type FormTextInputProps = TextInputProps & {
   label?: string; // 🔹 Agora você pode usar "label"
 };
 
-export default function FormTextInput({ label, style, ...rest }: FormTextInputProps) {
+export default function Listbox({ label, style, ...rest }: FormTextInputProps) {
   return (
     <View style={{ marginBottom: SPACING.md }}>
       {label && <Text style={styles.label}>{label}</Text>}

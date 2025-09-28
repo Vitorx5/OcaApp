@@ -1,7 +1,13 @@
 import React from "react";
-import { TouchableOpacity, Text, ActivityIndicator, StyleSheet, ViewStyle, TextStyle, StyleProp 
-  
- } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  StyleProp,
+} from "react-native";
 import { COLORS, RADIUS, SPACING, TYPO } from "../theme";
 
 type Props = {
@@ -14,7 +20,15 @@ type Props = {
   variant?: "primary" | "dark" | "outline";
 };
 
-export default function AppButton({ title, onPress, loading, disabled, style, textStyle, variant = "primary" }: Props) {
+export default function ButtonPix({
+  title,
+  onPress,
+  loading,
+  disabled,
+  style,
+  textStyle,
+  variant = "primary",
+}: Props) {
   const variantStyle =
     variant === "primary"
       ? styles.primary
@@ -26,13 +40,28 @@ export default function AppButton({ title, onPress, loading, disabled, style, te
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled || loading}
-      style={[styles.base, variantStyle, (disabled || loading) && styles.disabled, style]}
+      style={[
+        styles.base,
+        variantStyle,
+        (disabled || loading) && styles.disabled,
+        style,
+      ]}
       activeOpacity={0.9}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "outline" ? COLORS.dark : COLORS.primaryText} />
+        <ActivityIndicator
+          color={variant === "outline" ? COLORS.dark : COLORS.primaryText}
+        />
       ) : (
-        <Text style={[TYPO.button, variant === "outline" && { color: COLORS.dark }, textStyle]}>{title}</Text>
+        <Text
+          style={[
+            TYPO.button,
+            variant === "outline" && { color: COLORS.dark },
+            textStyle,
+          ]}
+        >
+          {title}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -40,7 +69,7 @@ export default function AppButton({ title, onPress, loading, disabled, style, te
 
 const styles = StyleSheet.create({
   base: {
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACING.xs,
     borderRadius: RADIUS.md,
     alignItems: "center",
     justifyContent: "center",
@@ -50,8 +79,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
   },
-  primary: { backgroundColor: COLORS.primary },
+  primary: { backgroundColor: COLORS.colorpix },
   dark: { backgroundColor: COLORS.dark },
-  outline: { backgroundColor: "transparent", borderWidth: 1, borderColor: COLORS.border },
+  outline: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
   disabled: { opacity: 0.7 },
 });

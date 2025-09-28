@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
+import AppButton from "../components/AppButton";
 
 export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState("");

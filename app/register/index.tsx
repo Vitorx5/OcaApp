@@ -45,6 +45,8 @@ export default function RegisterSelect() {
         <TouchableOpacity onPress={() => choose("comum")}>
           <Image source={require("../../assets/images/comum.png")} style={s.cardImg} resizeMode="contain" />
         </TouchableOpacity>
+        
+        
       </View>
     </Screen>
   );

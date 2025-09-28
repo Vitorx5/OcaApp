@@ -9,6 +9,8 @@ export const COLORS = {
   primaryText: "#ffffff",
   border: "#cfd5db",
   dark: "#111827",
+  colorpix: "#b4b4b4",
+  gray: "#9ca3af",
 };
 
 export const RADIUS = {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button } from "react-native";
+import AppButton from "../components/AppButton";
 
 export default function ResetPasswordScreen({ route }) {
   const { token } = route.params || {}; // backend envia token pelo deep link
