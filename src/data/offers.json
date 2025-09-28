@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "avatar": "avatar1.png",
+    "name": "Jefferson Sena",
+    "role": "Advogado(a)",
+    "registration": "OAB XXXXXXXX-X",
+    "description": "Consultoria Jurídica em Direito de Família. Orientação gratuita sobre divórcio, guarda, pensão, visitas e acordos.",
+    "date": "06/09/2025",
+    "time": "08:00h às 11:00h",
+    "status": "ONLINE",
+    "vacancies": 4
+  },
+  {
+    "id": 2,
+    "avatar": "avatar2.png",
+    "name": "João Victor",
+    "role": "Contador(a)",
+    "registration": "CRC XXXXXXXX-X",
+    "description": "Consultoria contábil para pequenas empresas, incluindo impostos, folha e declaração de IR.",
+    "date": "07/09/2025",
+    "time": "09:00h às 12:00h",
+    "status": "OFFLINE",
+    "vacancies": 3
+  }
+]
