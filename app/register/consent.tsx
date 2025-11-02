@@ -1,4 +1,3 @@
-// app/register/consent.tsx
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -8,11 +7,17 @@ import {
   Switch,
   Platform,
   KeyboardAvoidingView,
+  Text,
+  ActivityIndicator,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
-import { router } from "expo-router";
+import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
+// seus componentes/projeto (ajuste os paths se forem diferentes)
 import Screen from "../../src/components/Screen";
 import { Title, Subtitle } from "../../src/components/Typography";
 import AppButton from "../../src/components/AppButton";
@@ -147,7 +152,7 @@ export default function RegisterConsent() {
     }
   };
 
-  if (loading) return <Screen/>;
+  if (loading) return <Screen>{null}</Screen>;
 
   return (
     <Screen>
@@ -166,6 +171,25 @@ export default function RegisterConsent() {
             Para continuar, você precisa aceitar nossa Política de Privacidade. Também pode optar por receber
             notificações por WhatsApp (opcional).
           </Subtitle>
+
+          <Text style={s.sectionTitle}>Política de Privacidade</Text>
+              <View style={s.privacyBox}>
+                <ScrollView>
+                  <Text style={s.privacyText}>
+                    Esta Política de Privacidade descreve, de forma clara e
+                    transparente, como Nativo Desenvolvimentos (CNPJ
+                    [xx.xxx.xxx/xxxx-xx]), na qualidade de controladora, coleta,
+                    utiliza, armazena e compartilha dados pessoais dos usuários
+                    do [Nome do App/Site], em conformidade com a Lei Geral de
+                    Proteção de Dados – LGPD (Lei nº 13.709/2018).{"\n\n"}
+                    Tratamos apenas as informações necessárias para prestar e
+                    aprimorar nossos serviços (por exemplo, dados de
+                    identificação, contato, navegação e cookies), com bases
+                    legais como execução de contrato, cumprimento de obrigações
+                    legais e legítimo interesse.
+                  </Text>
+                </ScrollView>
+              </View>
 
           <Spacer size={SPACING.lg} />
 
@@ -202,13 +226,35 @@ export default function RegisterConsent() {
     </Screen>
   );
 }
-
 const s = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
+  },
+
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 24,
+    marginBottom: 8,
+    color: "#222",  
+  },
+
+  privacyBox: {
+    backgroundColor: "#f5f5f5",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
+    maxHeight: 180,
+  },
+
+  privacyText: {
+    fontSize: 12,
+    color: "#444",
+    lineHeight: 18,
+    marginBottom: 10,
   },
   // policyText: { lineHeight: 20, opacity: 0.8 },
 });

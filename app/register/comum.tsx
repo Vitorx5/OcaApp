@@ -113,7 +113,6 @@ export default function RegisterComum() {
               <Spacer size={SPACING.lg} />
 
               <FormTextInput
-                label="Nome"
                 placeholder="Seu nome completo"
                 value={nome}
                 onChangeText={setNome}
@@ -122,8 +121,7 @@ export default function RegisterComum() {
               <Spacer size={SPACING.sm} />
 
               <FormTextInput
-                label="Email"
-                placeholder="email@exemplo.com"
+                placeholder="E-mail"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -133,7 +131,6 @@ export default function RegisterComum() {
               <Spacer size={SPACING.sm} />
 
               <FormTextInput
-                label="WhatsApp"
                 placeholder="+5592999999999"
                 value={whatsapp}
                 onChangeText={setWhatsapp}
@@ -143,8 +140,7 @@ export default function RegisterComum() {
               <Spacer size={SPACING.sm} />
 
               <FormTextInput
-                label="Senha"
-                placeholder="*******"
+                placeholder="Senha"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -153,8 +149,7 @@ export default function RegisterComum() {
               <Spacer size={SPACING.sm} />
 
               <FormTextInput
-                label="Confirmar senha"
-                placeholder="*******"
+                placeholder="Confirmar senha"
                 value={passwordConf}
                 onChangeText={setPasswordConf}
                 secureTextEntry
