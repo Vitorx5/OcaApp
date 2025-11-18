@@ -83,14 +83,14 @@ export default function Logout() {
           title="SAIR"
           onPress={handleConfirm}
           loading={sending}
-          style={[styles.btn, styles.btnGray]}
+          style={{ ...styles.btn, ...styles.btnGray }}
           textStyle={styles.btnGrayText}
         />
         <Spacer size={SPACING.md} />
         <AppButton
           title="Retornar"
           onPress={handleCancel}
-          style={[styles.btn, styles.btnOrange]}
+          style={{ ...styles.btn, ...styles.btnOrange }}
           textStyle={styles.btnYellowText}
           
         />

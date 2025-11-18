@@ -34,7 +34,7 @@ export default function Login() {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status === "granted") {
-          const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced, maximumAge: 10_000, timeout: 15_000 });
+          const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
           latitude = pos.coords.latitude; longitude = pos.coords.longitude;
         }
       } catch {}

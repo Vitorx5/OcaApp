@@ -130,7 +130,8 @@ export default function RegisterComum() {
   return (
     <Screen>
       {/* Cabeçalho */}
-      <View style={s.headerWrap}>
+      <View style
+      ={s.headerWrap}>
         <HeaderCard>
           <Logo width={120} height={120} />
         </HeaderCard>
